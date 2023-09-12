@@ -1,6 +1,7 @@
 // operation variables
 let firstNum = 'empty';
 let secondNum = 'empty';
+let prevoperator = "";
 let operator = "";
 let currentValue = 0;
 let multiplier = 10;
@@ -90,9 +91,11 @@ normalButtons.forEach((normalButton) => {
             if(firstNum == 'empty'){
                 firstNum = currentValue;
                 currentValue = 0;
+                prevoperator = operator;
             }
             else if(secondNum == 'empty'){
-                firstNum = operate(operator, firstNum, currentValue);
+                firstNum = operate(prevoperator, firstNum, currentValue);
+                prevoperator = operator;
                 currentValue = 0;
             }
         }
