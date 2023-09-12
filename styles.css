@@ -1,0 +1,50 @@
+/* .calculatorContainer {
+    border: 1px solid #000;
+    border-radius : 10px;
+} */
+
+.screen {
+    min-width: 60%;
+    min-height: 100px;
+    margin: auto;
+    background-color: wheat;
+}
+
+.calculatorContainer {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+}
+
+.deleteButtonsContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 60%;
+}
+
+.normalButtonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 60%;
+}
+
+.normalButton{
+    box-sizing: border-box;
+    width: calc(25% - 2px);
+    height: 60px;
+    margin: 1px;
+    background-color: #ccc;
+    border: 1px solid #000;
+}
+
+.deleteButton{
+    box-sizing: border-box;
+    width: calc(50% - 2px);
+    height: 60px;
+    margin: 1px;
+    border: 1px solid #000;
+    flex-grow: 1;
+}
