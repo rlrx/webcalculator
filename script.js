@@ -3,7 +3,7 @@ let firstNum = 0;
 let secondNum = 0;
 let operator = "";
 let currentValue = 0;
-let multiplier = 1;
+let multiplier = 10;
 
 
 function add(a,b){
@@ -38,12 +38,16 @@ function operate(operator, a, b){
 }
 
 function populateDisplay(clickedValue, currentValue, multiplier){
-    let calculatedValue = clickedValue * multiplier;
-    currentValue = currentValue + calculatedValue;
+    // convert the values to intergers
+    clickedValue = parseInt(clickedValue);
+    currentValue = parseInt(currentValue);
+    multiplier = parseInt(multiplier);
+
+    let calculatedValue = currentValue * multiplier; 
+    currentValue = clickedValue + calculatedValue; 
     let screen = document.querySelector('.screen');
     screen.textContent = currentValue;
-    multiplier*=10;
-    return currentValue, multiplier;
+    return {currentValue, multiplier};
 }
 
 
@@ -53,7 +57,14 @@ normalButtons.forEach((normalButton) => {
     normalButton.addEventListener("click", () => {
         let clickedValue = normalButton.textContent; // each button is going to give off a clicked value
         console.log(clickedValue);
-        currentValue, multiplier = populateDisplay(clickedValue, currentValue, multiplier);
+        if (clickedValue !== "." && clickedValue !== "+" && clickedValue !== "-" && clickedValue !== "*" && clickedValue !== "/" && clickedValue !== "="){
+            let result = populateDisplay(clickedValue, currentValue, multiplier);
+            currentValue = result.currentValue;
+            multiplier = result.multiplier;
+        }
+        else{
+            console.log("operand clicked");
+        }
     });
 });
 
