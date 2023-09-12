@@ -1,6 +1,6 @@
 // operation variables
-let firstNum = 0;
-let secondNum = 0;
+let firstNum = 'empty';
+let secondNum = 'empty';
 let operator = "";
 let currentValue = 0;
 let multiplier = 10;
@@ -23,31 +23,30 @@ function divide(a,b){
 }
 
 function operate(operator, a, b){
-    if(operator == "add"){
-        add(a,b);
+    if(operator == "+"){
+        return add(a,b);
     }
-    else if(operator == "subtract"){
-        subtract(a,b);
+    else if(operator == "-"){
+        return subtract(a,b);
     }
-    else if(operator == "multiply"){
-        multiply(a,b);
+    else if(operator == "*"){
+        return multiply(a,b);
     }
-    else if(operator == "divide"){
-        divide(a,b);
+    else if(operator == "/"){
+        return divide(a,b);
     }
 }
 
-function populateDisplay(clickedValue, currentValue, multiplier){
+function populateDisplay(clickedValue, currentValue){
     // convert the values to intergers
-    clickedValue = parseInt(clickedValue);
-    currentValue = parseInt(currentValue);
-    multiplier = parseInt(multiplier);
+    clickedValue = parseFloat(clickedValue);
+    currentValue = parseFloat(currentValue);
 
     let calculatedValue = currentValue * multiplier; 
     currentValue = clickedValue + calculatedValue; 
     let screen = document.querySelector('.screen');
     screen.textContent = currentValue;
-    return {currentValue, multiplier};
+    return currentValue;
 }
 
 
@@ -58,12 +57,44 @@ normalButtons.forEach((normalButton) => {
         let clickedValue = normalButton.textContent; // each button is going to give off a clicked value
         console.log(clickedValue);
         if (clickedValue !== "." && clickedValue !== "+" && clickedValue !== "-" && clickedValue !== "*" && clickedValue !== "/" && clickedValue !== "="){
-            let result = populateDisplay(clickedValue, currentValue, multiplier);
-            currentValue = result.currentValue;
-            multiplier = result.multiplier;
+            currentValue = populateDisplay(clickedValue, currentValue);
+        }
+        else if(clickedValue == "."){
+            console.log("operand clicked");
+        }
+        else if(clickedValue == "="){   
+            firstNum = parseFloat(firstNum);
+            secondNum = parseFloat(currentValue);
+            console.log(`first num = ${firstNum}`);
+            console.log(`second num = ${secondNum}`);
+            console.log(`operator = ${operator}`);
+            let finalResult = operate(operator, firstNum, secondNum);
+            console.log(finalResult);
+            let screen = document.querySelector('.screen');
+            screen.textContent = finalResult;
         }
         else{
-            console.log("operand clicked");
+            if(clickedValue == "+"){
+                operator = "+";
+            }
+            else if(clickedValue == "-"){
+                operator = "-";
+            }
+            else if(clickedValue == '*'){
+                operator = "*";
+            }
+            else if(clickedValue == "/"){
+                operator = "/";
+            }
+
+            if(firstNum == 'empty'){
+                firstNum = currentValue;
+                currentValue = 0;
+            }
+            else if(secondNum == 'empty'){
+                firstNum = operate(operator, firstNum, currentValue);
+                currentValue = 0;
+            }
         }
     });
 });
